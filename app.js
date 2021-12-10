@@ -5,17 +5,19 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 // Body parser, reading data from body into req.body
-app.use(express.json());
+app.use(bodyParser.json());
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
 //routers
 const userRouter = require('./routes/userRoutes');
+const postRouter = require('./routes/postRoutes');
 
 // 1) GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -69,6 +71,8 @@ app.use((req, res, next) => {
 
 //ROUTES
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/posts', postRouter);
+
 
 app.use(globalErrorHandler);
 
