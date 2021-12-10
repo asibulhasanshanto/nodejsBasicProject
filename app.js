@@ -15,7 +15,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
 //routers
-// const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
 
 // 1) GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 });
 
 //ROUTES
-// app.use('/api/v1/users',userRouter);
+app.use('/api/v1/users', userRouter);
 
 app.use(globalErrorHandler);
 
