@@ -66,6 +66,10 @@ app.use(express.static(`${__dirname}/public`));
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
     // console.log(req.headers);
+    // console.log("start\n");
+    // const message = "{\"body\":\"body is required\",\"title\":\"title is required\"}";
+    // console.log(JSON.parse(message));
+    // console.log("end\n");
     next();
 });
 

@@ -14,10 +14,14 @@ const handleDuplicateFieldsDB = err => {
 };
 
 const handleValidationErrorDB = err => {
-  const errors = Object.values(err.errors).map(el => el.message);
-
-  const message = `Invalid input data. ${errors.join('. ')}`;
-  return new AppError(message, 400);
+  let message = {};
+  const errors = Object.values(err.errors).map(el => {
+    // console.log(el);
+    message[el.path]=el.message
+  });
+  // console.log(message);
+  // const message = `Invalid input data. ${errors.join('. ')}`;
+  return new AppError(JSON.stringify(message), 400);
 };
 
 const handleJWTError = () =>
@@ -58,14 +62,14 @@ const sendErrorProd = (err, res) => {
 
 module.exports = (err, req, res, next) => {
 
-  console.log("\n\n\n\n" + typeof err);
+  
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    console.log("\n\nError start:" + err)
+    
 
     //could not copy err object to error by spread operator.
     let error = JSON.parse(JSON.stringify(err));
