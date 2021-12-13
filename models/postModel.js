@@ -10,8 +10,11 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: [true, 'body is required'],
         minlength: 10,
+    },
+    image: {
+        type: String,
     }
 });
 
-const Post = mongoose.model('Post',postSchema);
+const Post = mongoose.model('Post', postSchema);
 module.exports = Post;
